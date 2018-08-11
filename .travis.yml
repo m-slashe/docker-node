@@ -14,11 +14,13 @@ after_script:
 - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
 - docker push $REGISTRY_USER/docker-node:$version
 after_success:
-- npm version patch
+- git status
 - git config --global user.email "builds@travis-ci.com"
 - git config --global user.name "Travis CI"
 - git add .
+- git status
 - git commit -m "TravisCI build $version"
+- git status
 - git tag $version -a -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER"
 - git push --repo=https://$GITHUB_PERSONAL_ACCESS_TOKEN_FOR_TRAVIS@github.com/m-slashe/docker-node.git --all
 - git push --repo=https://$GITHUB_PERSONAL_ACCESS_TOKEN_FOR_TRAVIS@github.com/m-slashe/docker-node.git --tags
