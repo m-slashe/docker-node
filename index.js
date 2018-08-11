@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/exit', (req, res) => {
-  res.send('Aplicativo restartado!!!');
+  res.send('Aplicativo restartado!!!!');
   process.exit(0);
 });
 
