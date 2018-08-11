@@ -19,5 +19,5 @@ after_success:
 - git add .
 - git commit -m "TravisCI build $version"
 - git tag $version -a -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER"
-- git push master --repo=https://$GITHUB_PERSONAL_ACCESS_TOKEN_FOR_TRAVIS@github.com/m-slashe/docker-node.git
+- git push --repo=https://$GITHUB_PERSONAL_ACCESS_TOKEN_FOR_TRAVIS@github.com/m-slashe/docker-node.git --all
 - git push --repo=https://$GITHUB_PERSONAL_ACCESS_TOKEN_FOR_TRAVIS@github.com/m-slashe/docker-node.git --tags
