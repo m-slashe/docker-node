@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+env:
+  global:
+    - REGISTRY_USER=slashe
+    - REGISTRY_PASS=seila
+
+script:
+  - docker build --tag myimage .
+  - docker run myimage
+
+after_script:
+  - docker images
