@@ -12,11 +12,7 @@ script:
 
 after_script:
   - docker images
+  - docker push $REGISTRY_USER/docker-node
 
 before_deploy:
   - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
-deploy:
-  provider: script
-  script: docker push $REGISTRY_USER/docker-node
-  on:
-    branch: master
