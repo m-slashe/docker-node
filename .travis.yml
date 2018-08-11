@@ -20,7 +20,7 @@ after_success:
 - git config --global user.name "Travis CI"
 - git add .
 - git status
-- git commit -m "TravisCI build $version"
+- git commit -m "TravisCI build $version [skip ci]"
 - git status
 - git tag $version -a -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER"
 - git push --repo=https://$GITHUB_PERSONAL_ACCESS_TOKEN_FOR_TRAVIS@github.com/m-slashe/docker-node.git --all
