@@ -9,7 +9,6 @@ env:
 
 script:
   - docker build --tag $REGISTRY_USER/docker-node .
-  - docker run $REGISTRY_USER/docker-node
 
 after_script:
   - docker images
