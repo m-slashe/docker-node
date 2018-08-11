@@ -12,7 +12,5 @@ script:
 
 after_script:
   - docker images
-  - docker push $REGISTRY_USER/docker-node
-
-before_deploy:
   - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
+  - docker push $REGISTRY_USER/docker-node
