@@ -5,6 +5,7 @@ services:
 env:
   global:
     - REGISTRY_USER=slashe
+    - secure: "Apv3v7/h5cUkEfJV0sLTQHhhQBEfVRo436Ou0e/nY+F4aFP0W9raZYIlEb4b7j2hWU7w3MMO4Wp8J/3a9j0/ISM2ypMkcKaPNyj7cNLkRDOGjaGGcvAuRDBnVe8SgPGlgsofjf1+MQwYoLgIeFYAZ0uOqzicFiSAU1D13xjhnRXlIEJaDzeEqYr29B6qgvDb0Be9p3BDqMjhF6jierlQgGvQf3qM4BhixGAPP4R4vlXPvGuH6pFkl2IqztHJtnFg3a6tDMYBA9TPuMpo9x6TjLMi4k0Z+V3LD3U9yIpS/esd8tf/I5kIpmFWXmFptlj7jlPUhwEMB4cigPtv2OZqW4HIDMV608TCMxyN6a+giNr+aHrjYJhUkTp3j1X+RS9zowj/9EaRtHp4FDuT9ICSX8bSAgTEL9JGSCY2BIxy70nCp+K+e69mWZH7U7Ffn11MYwwnKL3Ztm6jdDRRvk9/BMUIMTJaydfFWafuDIZWipdgthe0P523BTj1SgMxPbIQDkfzVLnH8gNbiugx/qYUFqCIS5AWAPWkfbOrH2ew3I0ahPd/M6G6NE95BxXUxGomgiL4j0hbO/ZwQlgDnNkLrGEo2QN2Mkfd1/v1qot3m9xAvbjUMAJRsFPHfe9Vvy59er2UFEd7m49Zsez2A+cPFGuCCc15bGN1tcr8PX25a74="
     - secure: "FbrLescP5q4KOhA10h2Z6MwnieX8lxwtw3HA9H8gmLQekiuqvJ8r7nqUWkm6N/T/IZhVds4C8+QUtR9xMHZ95o5kcYlCdBTQyINYmo38zNdKSnUhv8wsbJkHMwLJPmaOIRfC1k5wvRpNitLL4cHcjAZlYIJeymTsdBLzY/SknQQAtHoOjROuEa7rIgr+UkHWDz6PccOHr8EEBJM/uQtLcBEnE6amAkN2b7BVU3AqVcSi/RDp0b4uphJXMQxgw53UqpY2YkKt+CVLuqoHOM75A99AdQSOGI1hNJRzUMUXCIkaHRj16H3btxsumpJ6TTlMgC25hx70n33WxRPCtpqzUBHkHnER7Ql3EgxYZpDXZQQVNIGX+sGxlsMSn2Ims6yOJm0h+vLw9dHADbI9B/QormC6GEV6HNWmEpm1WBiWZh+xnZ462IROD65F3LzIjSd6T8K+XvbJzTojKXzPhy9rJgpIA8hUWoej/2Y0AF2nAYXq5XxM5CtYORLzvJ5aVclh+Ho/PAylwCrOHMrAm5dcTqn6R8paNosHosO8rByQ3C5+YsCKwt0LTj4g1aMyqu6qMjh2Jt4yASRAc4zVisCYt2a8MGONm1hgHW013yx6RyPZDRkhlM+EiRcDzkwF15NXedf0R88DvCzyxgZQneyLmrx/UBrvbQThYCy3UJaD/5U="
 
 script:
@@ -21,6 +22,5 @@ after_success:
   - git config --global user.name "Travis CI"
   - git add .
   - git commit -m "TravisCI build $version"
-  - git push origin master
   - git tag $version -a -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER"
-  - git push origin $version
+  - git push -q https://$GITHUB_PERSONAL_ACCESS_TOKEN_FOR_TRAVIS@github.com/m-slashe/docker-node.git --tags
