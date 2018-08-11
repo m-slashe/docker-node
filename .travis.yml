@@ -8,10 +8,19 @@ env:
     - secure: "FbrLescP5q4KOhA10h2Z6MwnieX8lxwtw3HA9H8gmLQekiuqvJ8r7nqUWkm6N/T/IZhVds4C8+QUtR9xMHZ95o5kcYlCdBTQyINYmo38zNdKSnUhv8wsbJkHMwLJPmaOIRfC1k5wvRpNitLL4cHcjAZlYIJeymTsdBLzY/SknQQAtHoOjROuEa7rIgr+UkHWDz6PccOHr8EEBJM/uQtLcBEnE6amAkN2b7BVU3AqVcSi/RDp0b4uphJXMQxgw53UqpY2YkKt+CVLuqoHOM75A99AdQSOGI1hNJRzUMUXCIkaHRj16H3btxsumpJ6TTlMgC25hx70n33WxRPCtpqzUBHkHnER7Ql3EgxYZpDXZQQVNIGX+sGxlsMSn2Ims6yOJm0h+vLw9dHADbI9B/QormC6GEV6HNWmEpm1WBiWZh+xnZ462IROD65F3LzIjSd6T8K+XvbJzTojKXzPhy9rJgpIA8hUWoej/2Y0AF2nAYXq5XxM5CtYORLzvJ5aVclh+Ho/PAylwCrOHMrAm5dcTqn6R8paNosHosO8rByQ3C5+YsCKwt0LTj4g1aMyqu6qMjh2Jt4yASRAc4zVisCYt2a8MGONm1hgHW013yx6RyPZDRkhlM+EiRcDzkwF15NXedf0R88DvCzyxgZQneyLmrx/UBrvbQThYCy3UJaD/5U="
 
 script:
-  - export PACKAGE_VERSION=$(npm version patch)
-  - docker build --tag $REGISTRY_USER/docker-node:$PACKAGE_VERSION .
+  - version=$(npm version patch)
+  - docker build --tag $REGISTRY_USER/docker-node:$version .
 
 after_script:
   - docker images
   - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
-  - docker push $REGISTRY_USER/docker-node:$PACKAGE_VERSION
+  - docker push $REGISTRY_USER/docker-node:$version
+
+after_success:
+  - git config --global user.email "builds@travis-ci.com"
+  - git config --global user.name "Travis CI"
+  - git add .
+  - git commit -m "TravisCI build $version"
+  - git push origin master
+  - git tag $version -a -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER"
+  - git push origin $version
